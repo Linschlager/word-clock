@@ -1,0 +1,77 @@
+$activecolor: #00FF41;
+$inactivecolor: #333;
+
+html {
+  background-color: #111;
+  color: #ddd;
+}
+
+#grid {
+  font-family: monospace;
+  font-size: 2vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+}
+.row {
+  display: flex;
+}
+
+.col {
+  padding: 4px 8px 4px 8px;
+  font-weight: bold;
+
+  @media screen and (max-width: 800px) {
+    padding: 6px 8px 6px 8px;
+  }
+  @media screen and (max-width: 400px) {
+    padding: 4px 8px 4px 8px;
+    font-weight: normal;
+  }
+}
+
+.glow {
+  color: $activecolor;
+}
+
+.inactive {
+  color: $inactivecolor;
+}
+
+.minute {
+  $margin: .5vw;
+  @mixin border($left: false, $right: false, $bottom: false, $top: false, $active: true) {
+    $color: darkgray;
+    @if $active { $color: $activecolor; }
+    @if $left  { border-left: $margin solid $color; margin-left: -$margin; }
+    @if $right { border-right: $margin solid $color; margin-right: -$margin; }
+    @if $bottom { border-bottom: $margin solid $color; margin-bottom: -$margin; }
+    @if $top { border-top: $margin solid $color; margin-top: -$margin; }
+  }
+  &-1 {
+    @include border($top: true, $left: true);
+    &-inactive {
+      @include border($top: true, $left: true, $active: false);
+    }
+  }
+  &-11 {
+    @include border($top: true, $right: true);
+    &-inactive {
+      @include border($top: true, $right: true, $active: false);
+    }
+  }
+  &-100 {
+    @include border($bottom: true, $left: true);
+    &-inactive {
+      @include border($bottom: true, $left: true, $active: false);
+    }
+  }
+  &-110 {
+    @include border($bottom: true, $right: true);
+    &-inactive {
+      @include border($bottom: true, $right: true, $active: false);
+    }
+  }
+}
